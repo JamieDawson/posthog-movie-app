@@ -1,0 +1,79 @@
+import React, { useEffect, useState } from "react";
+import Movie from "./components/Movie";
+import "./App.css";
+
+const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${
+  import.meta.env.VITE_API_SECRET
+}`;
+const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${
+  import.meta.env.VITE_API_SECRET
+}&query=`;
+
+interface MovieType {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  overview: string;
+  vote_average: number;
+}
+
+function App() {
+  const [movies, setMovies] = useState<MovieType[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    getMovies(FEATURED_API);
+  }, []);
+
+  const getMovies = (API: string) => {
+    fetch(API)
+      .then((res) => res.json())
+      .then((data) => {
+        setMovies(data.results || []);
+      })
+      .catch((err) => console.error("Error fetching movies:", err));
+  };
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchTerm) {
+      getMovies(SEARCH_API + searchTerm);
+    }
+  };
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    getMovies(FEATURED_API); // reload featured movies
+  };
+
+  return (
+    <>
+      <header>
+        <div className="header-text">Movie search website built in React</div>
+        <button type="button" className="button" onClick={handleClearSearch}>
+          HOME
+        </button>
+        <form onSubmit={handleOnSubmit}>
+          <input
+            className="search"
+            type="search"
+            placeholder="Search movie title"
+            value={searchTerm}
+            onChange={handleOnChange}
+          />
+        </form>
+      </header>
+
+      <div className="movie-container">
+        {movies.length > 0 &&
+          movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+      </div>
+    </>
+  );
+}
+
+export default App;

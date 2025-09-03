@@ -20,4 +20,4 @@ Tech Stack:
 
 ## Want is a Posthog Survey?
 
-![Tavus App Screenshot](./assets/posthog_one.png)
+![Posthog example Screenshot](./src/assets/posthog_one.png)

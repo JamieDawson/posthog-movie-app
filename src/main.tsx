@@ -6,10 +6,18 @@ import { PostHogProvider } from "posthog-js/react";
 
 const options = {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
-  defaults: "2025-05-24",
+  // Remove 'defaults'
 };
 
-createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error(
+    'Root element with id "root" not found. Make sure your index.html contains <div id="root"></div>'
+  );
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <PostHogProvider
       apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}

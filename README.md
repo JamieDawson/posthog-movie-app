@@ -4,6 +4,8 @@ This project demonstrates how to display a Posthog survey in a React and TypeScr
 
 You can view the website by clicking my link: [https://posthog-movie-app.netlify.app/](https://posthog-movie-app.netlify.app/)
 
+![Posthog example of it appearing on the app](./src/assets/posthog_one.png)
+
 ---
 
 ## What is the main app?
@@ -25,8 +27,6 @@ Tech Stack:
 
 A PostHog survey is a feature that allows you to collect direct feedback from your users inside your product. Instead of sending them to a form or email, PostHog shows the survey right in your app or website. This is useful if you want your users to provide details on what they like or dislike about your website or products, without having to send them an email.
 
-![Posthog example Screenshot](./src/assets/posthog_one.png)
-
 # How do I get a Posthog Survey on my website?
 
 Below are the steps to follow if you want to create your own survey on your website. If you've already configured your project to have Posthog, you can skip the configuration section and go to the **Adding a Survey to your app** section of this Readme file.
@@ -35,13 +35,13 @@ Below are the steps to follow if you want to create your own survey on your webs
 
 1. Create an account on [https://posthog.com/](https://posthog.com/)
 2. Create your organization by giving it a name.
-   ![Posthog example Screenshot](./src/assets/Posthog_step_one.png)
+   ![Posthog screenshot of the page where you add your organization name.](./src/assets/Posthog_step_one.png)
 3. Let Posthog know which features you're interested in.
-   ![Posthog example Screenshot](./src/assets/Posthog_step_two.png)
+   ![Posthog Screenshot of the page where you select the features you're interested in.](./src/assets/Posthog_step_two.png)
 4. Select a framework you want to attach Posthog to. I ended up picking React because that's what I used to make my app.
-   ![Posthog example Screenshot](./src/assets/Posthog_step_three.png)
+   ![Posthog Screenshot of the page where you select your framework](./src/assets/Posthog_step_three.png)
 5. Follow the installation guide. This part is pretty easy. All you have to do is run an npm install on posthog-js, apply your VITE environment variables, and update your main.tsx file.
-   ![Posthog example Screenshot](./src/assets/Posthog_step_four.png)
+   ![Posthog Screenshot of the page that shows you how to install Posthog on your app.](./src/assets/Posthog_step_four.png)
 
 **Note for TypeScript users:**
 If you’re seeing warnings or errors in your main.tsx file, use this version to resolve them:
@@ -90,9 +90,9 @@ Your project now has Posthog configured into it. Now it's time to add the survey
 
 1. Click the survey button on the dropdown menu on the left menu. You might need to configure your Surveys API to allow Surveys. Thankfully, that's as easy as two button clicks!
 
-![Posthog example Screenshot](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
+![Screenshot of the Surveys page on Posthog](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
 
-![Posthog example Screenshot](./src/assets/survey_2.png)
+![Screenshot of the page where you select the kind of survey you want.](./src/assets/survey_2.png)
 From here you're going to see a lot of options to customize your app:
 
 - Presentation: I'd recommend the Popover option for starting. This will make your survey pop up on the screen.

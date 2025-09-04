@@ -1,14 +1,14 @@
 # 📝 Posthog + Movie Database app
 
-This project demonstrates how to show a Posthog survey on a React + TypeScript app.
+This project demonstrates how to display a Posthog survey in a React and TypeScript app.
 
 You can view the website by clicking my link: [https://posthog-movie-app.netlify.app/](https://posthog-movie-app.netlify.app/)
 
 ---
 
-## Want is the main app?
+## What is the main app?
 
-This is a React/TypeScript app that calls on [themoviedb API](https://www.themoviedb.org/?language=en-US) to display movie posters. You have the ability to search for specific posters in the search bar and then clear the search results by clicking the Home button.
+This is a React/TypeScript app that calls on [themoviedb API](https://www.themoviedb.org/?language=en-US) to display movie posters. You can search for specific posters in the search bar and then clear the search results by clicking the Home button.
 
 Tech Stack:
 
@@ -21,14 +21,86 @@ Tech Stack:
 
 ---
 
-## Want is a Posthog Survey?
+## What is a Posthog Survey?
 
-A PostHog survey is a feature that lets you collect direct feedback from your users inside your product. Instead of sending them away to a form or email, PostHog shows the survey right in your app or website. This is useful if you want your users to give you details on what they like or dislike about your website or products you're selling, without having to send them an email.
+A PostHog survey is a feature that allows you to collect direct feedback from your users inside your product. Instead of sending them to a form or email, PostHog shows the survey right in your app or website. This is useful if you want your users to provide details on what they like or dislike about your website or products, without having to send them an email.
 
 ![Posthog example Screenshot](./src/assets/posthog_one.png)
 
-## How do I get a Posthog Survey on my website?
+# How do I get a Posthog Survey on my website?
 
-Here are the steps to follow if you want your own survey on your website:
+Below are the steps to follow if you want to create your own survey on your website. If you've already configured your project to have Posthog, you can skip the configuration section and go to the **Adding a Survey to your app** section of this Readme file.
+
+## Configure Posthog into your project:
 
 1. Create an account on [https://posthog.com/](https://posthog.com/)
+2. Create your organization by giving it a name.
+   ![Posthog example Screenshot](./src/assets/posthog_step_one.png)
+3. Let Posthog know which features you're interested in.
+   ![Posthog example Screenshot](./src/assets/posthog_step_two.png)
+4. Select a framework you want to attach Posthog to. I ended up picking React because that's what I used to make my app.
+   ![Posthog example Screenshot](./src/assets/posthog_step_three.png)
+5. Follow the installation guide. This part is pretty easy. All you have to do is run an npm install on posthog-js, apply your VITE environment variables, and update your main.tsx file.
+   ![Posthog example Screenshot](./src/assets/posthog_step_four.png)
+
+**Note for TypeScript users:**
+If you’re seeing warnings or errors in your main.tsx file, use this version to resolve them:
+
+```
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { PostHogProvider } from "posthog-js/react";
+
+const options = {
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  // Remove 'defaults'
+};
+
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error(
+    'Root element with id "root" not found. Make sure your index.html contains <div id="root"></div>'
+  );
+}
+
+createRoot(rootElement).render(
+  <StrictMode>
+    <PostHogProvider
+      apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
+      options={options}
+    >
+      <App />
+    </PostHogProvider>
+  </StrictMode>
+);
+```
+
+- Removed the defaults property from the options object, as it is not supported by the React PostHogProvider and causes TypeScript errors.
+- Added a check to ensure the root element exists before rendering, preventing runtime errors.
+
+6. Select which plan you want (Free or paid)
+7. Invite your teammates (Optional)
+
+Your project now has Posthog configured into it. Now it's time to add the survey so it pops up!
+
+## Adding a Survey to your app
+
+1. Click the survey button on the dropdown menu on the left menu. You might need to configure your Surveys API to allow Surveys. Thankfully, that's as easy as two button clicks!
+
+![Posthog example Screenshot](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
+
+![Posthog example Screenshot](./src/assets/survey_2.png)
+From here you're going to see a lot of options to customize your app:
+
+- Presentation: I'd recommend the Popover option for starting. This will make your survey pop up on the screen.
+- Steps: Customize what the question says and what the submit button can say.
+- Customization: Change how it looks, from size to color.
+- Display conditions: Keep it **All Users** for now. You can hange it later to fit certain conditions
+- Completion Conditions: For testing, I'm keeping it as is
+
+Once you've customized your survey, click Save at the top right of the screen.
+
+3. To have your survey active, click the **Launch** button in the top right of the screen. Once you've confirmed the launch, the survey should be on your connected app!

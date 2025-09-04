@@ -35,13 +35,13 @@ Below are the steps to follow if you want to create your own survey on your webs
 
 1. Create an account on [https://posthog.com/](https://posthog.com/)
 2. Create your organization by giving it a name.
-   ![Posthog example Screenshot](./src/assets/posthog_step_one.png)
+   ![Posthog example Screenshot](./src/assets/Posthog_step_one.png)
 3. Let Posthog know which features you're interested in.
-   ![Posthog example Screenshot](./src/assets/posthog_step_two.png)
+   ![Posthog example Screenshot](./src/assets/Posthog_step_two.png)
 4. Select a framework you want to attach Posthog to. I ended up picking React because that's what I used to make my app.
-   ![Posthog example Screenshot](./src/assets/posthog_step_three.png)
+   ![Posthog example Screenshot](./src/assets/Posthog_step_three.png)
 5. Follow the installation guide. This part is pretty easy. All you have to do is run an npm install on posthog-js, apply your VITE environment variables, and update your main.tsx file.
-   ![Posthog example Screenshot](./src/assets/posthog_step_four.png)
+   ![Posthog example Screenshot](./src/assets/Posthog_step_four.png)
 
 **Note for TypeScript users:**
 If you’re seeing warnings or errors in your main.tsx file, use this version to resolve them:

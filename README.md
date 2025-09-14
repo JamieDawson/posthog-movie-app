@@ -126,6 +126,9 @@ Look up [my app](https://posthog-movie-app.netlify.app/) and click the **Posthog
 
 ## How to set up a Source and use the Posthog API to call the data
 
+Before you start, you'll need a Google sheet with example data.
+![Google Sheet with my example data that's being pulled into Posthog](./src/assets/posthog_sheet_2.png)
+
 1. **Connect Google Sheets to PostHog** \
    Go to your PostHog project.
    Navigate to Data pipeline > Sources.

@@ -2,9 +2,11 @@
 
 This project demonstrates:
 
+This project demonstrates:
+
 1. [How to display a Posthog survey in a React and TypeScript app](#-posthog-survey)
-2. How to connect a Google Sheet to the Posthog Data Warehouse and display it in your frontend.
-3. How to track Events in the search bar.
+2. [How to connect a Google Sheet to the Posthog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
+3. [How to track Events in the search bar](#-track-events)
 
 You can view the website by clicking my link: [https://posthog-movie-app.netlify.app/](https://posthog-movie-app.netlify.app/)
 

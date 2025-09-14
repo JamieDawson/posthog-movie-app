@@ -50,12 +50,41 @@ function App() {
     getMovies(FEATURED_API); // reload featured movies
   };
 
+  //Pulls from the Posthog Query API!
+  const handleFetchFavorite = async () => {
+    try {
+      const res = await fetch(
+        "https://posthog-backend-movie-app.netlify.app/.netlify/functions/sheet"
+      );
+      const data: string[][] = await res.json();
+
+      if (data.length > 0) {
+        const favoriteMovies: MovieType[] = data.map(
+          ([title, overview, poster, rating], index) => ({
+            id: Date.now() + index, // unique id for each movie
+            title,
+            overview,
+            poster_path: poster,
+            vote_average: Number(rating),
+          })
+        );
+
+        setMovies(favoriteMovies);
+      }
+    } catch (err) {
+      console.error("Error fetching favorite movies:", err);
+    }
+  };
+
   return (
     <>
       <header>
         <div className="header-text">Movie search website built in React</div>
         <button type="button" className="button" onClick={handleClearSearch}>
           HOME
+        </button>
+        <button type="button" className="button" onClick={handleFetchFavorite}>
+          Posthog Query API
         </button>
         <form onSubmit={handleOnSubmit}>
           <input

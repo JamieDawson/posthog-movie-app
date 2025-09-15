@@ -6,7 +6,9 @@ import { PostHogProvider } from "posthog-js/react";
 
 const options = {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
-  // Remove 'defaults'
+  session_recording: {
+    maskAllInputs: false, // User aren't typing sensitive info in input fields.
+  },
 };
 
 const rootElement = document.getElementById("root");

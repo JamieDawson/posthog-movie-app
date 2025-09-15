@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { usePostHog } from "posthog-js/react";
 import Movie from "./components/Movie";
 import "./App.css";
 
@@ -18,6 +19,7 @@ interface MovieType {
 }
 
 function App() {
+  const posthog = usePostHog();
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,7 +39,20 @@ function App() {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchTerm) {
-      getMovies(SEARCH_API + searchTerm);
+      fetch(SEARCH_API + searchTerm)
+        .then((res) => res.json())
+        .then((data) => {
+          const results = data.results || [];
+          setMovies(results);
+
+          if (posthog) {
+            posthog.capture("movie_search", {
+              search_term: searchTerm,
+              results_count: results.length,
+            });
+          }
+        })
+        .catch((err) => console.error("Error fetching search results:", err));
     }
   };
 

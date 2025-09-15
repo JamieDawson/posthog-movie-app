@@ -5,7 +5,7 @@ This project demonstrates:
 1. [How to display a Posthog survey in a React and TypeScript app](#-posthog-survey)
 2. [How to connect a Google Sheet to the Posthog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
 3. [How to track Events in the search bar](#-track-events)
-4. [How to apply Session Recordings to your Typescript project](#session-replay)
+4. [How to apply Session Recordings to your Typescript project](#-session-replay)
 
 Each link is an anchor link that will send you to the correct section in this Readme file.
 

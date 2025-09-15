@@ -306,3 +306,4 @@ createRoot(rootElement).render(
 2. After adding that code, test your app by doing something in it. For me I went to my app and searched "Hedgehog" in the search bar. \
     Once you've added that, Go back to the **Session Replay** button and watch the footage of your session. It might take a few seconds to generate the footage.
    [Watch the session replay](https://github.com/user-attachments/assets/e9e7776e-c94f-46a7-889b-05621c6b2686)
+   ![Posthog Product Analytics tab](./src/assets/ps.gif)

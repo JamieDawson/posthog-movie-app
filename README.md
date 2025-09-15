@@ -241,7 +241,7 @@ To organize your data, you'll need to:
 
 ## ![Posthog Product Analytics tab](./src/assets/posthog_event_2.png)
 
-# Session Replay
+# 🎥 Session Replay
 
 ## What is Session Replay
 

@@ -2,11 +2,12 @@
 
 This project demonstrates:
 
-This project demonstrates:
-
 1. [How to display a Posthog survey in a React and TypeScript app](#-posthog-survey)
 2. [How to connect a Google Sheet to the Posthog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
 3. [How to track Events in the search bar](#-track-events)
+4. [How to apply Session Recordings to your Typescript project](#-session-replay)
+
+Each link is an anchor link that will send you to the correct section in this Readme file.
 
 You can view the website by clicking my link: [https://posthog-movie-app.netlify.app/](https://posthog-movie-app.netlify.app/)
 
@@ -238,4 +239,70 @@ To organize your data, you'll need to:
 3. In the section called **series**, click the name of the event you want to track. In my example, I'm tracking `movie_search`.
 4. In the **Breakdown By** section, look up what you want to search for. I want to look up `search_term` and `results_count`, which are the two bits of data sent back in my `movie_search` object!
 
-![Posthog Product Analytics tab](./src/assets/posthog_event_2.png)
+## ![Posthog Product Analytics tab](./src/assets/posthog_event_2.png)
+
+# Session Replay
+
+## What is Session Replay
+
+Session replay is a playback of what users do on your site. Things like clicks, scrolls, typing, and navigation can be viewed in a screen recording that's captured right from the browser. It helps you see how people actually use your app so you can spot issues or understand behavior without guessing.
+
+## How to set up Session Replay in your app.
+
+### Configuring in Posthog:
+
+Enabling Session Replay in your account is very easy! You're pretty much just clicking three buttons!
+
+1. Click the **Session Replay** button on the left side of the screen.
+2. Click the **Configure** button in the top middle of the page.
+   ![Posthog Product Analytics tab](./src/assets/posthog_session_1.png)
+3. Click the **Record Users Session** button, and you'll have it set up on your account!
+   ![Posthog Product Analytics tab](./src/assets/posthog_session_1.png)
+
+### Configuring in your TypeScript app:
+
+1. In your `main.tsx` app, add the `session_recording` object in your `PostHogProvider` \
+   This code:
+
+- Imports `posthog-js/react` and provides `PostHogProvider`
+- Wraps `PostHogProvider` around your `<App />` component
+- Provides the `session_recordings` object, which gives your app the ability to record.
+- `session_recording` also includes `maskAllInputs: false`. You would want to set this to true if your input fields were taking sensitive information. But my one input field only takes in the names of films, so I'm not too worried.
+
+```
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { PostHogProvider } from "posthog-js/react";
+
+const options = {
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  session_recording: {
+    maskAllInputs: false, // User aren't typing sensitive info in input fields.
+  },
+};
+
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error(
+    'Root element with id "root" not found. Make sure your index.html contains <div id="root"></div>'
+  );
+}
+
+createRoot(rootElement).render(
+  <StrictMode>
+    <PostHogProvider
+      apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
+      options={options}
+    >
+      <App />
+    </PostHogProvider>
+  </StrictMode>
+);
+```
+
+2. After adding that code, test your app by doing something in it. For me I went to my app and searched "Hedgehog" in the search bar. \
+   Once you've added that, Go back to the **Session Replay** button and watch the footage of your session. It might take a few seconds to generate the footage.
+   ![Posthog Product Analytics tab](./src/assets/posthog_session_3.mp4)

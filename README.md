@@ -1,9 +1,9 @@
-# Posthog + Movie Database app
+# PostHog + Movie Database app
 
 This project demonstrates:
 
-1. [How to display a Posthog survey in a React and TypeScript app](#-posthog-survey)
-2. [How to connect a Google Sheet to the Posthog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
+1. [How to display a PostHog survey in a React and TypeScript app](#-posthog-survey)
+2. [How to connect a Google Sheet to the PostHog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
 3. [How to track Events in the search bar](#-track-events)
 4. [How to apply Session Recordings to your Typescript project](#-session-replay)
 
@@ -11,7 +11,7 @@ Each link is an anchor link that will send you to the correct section in this Re
 
 You can view the website by clicking my link: [https://posthog-movie-app.netlify.app/](https://posthog-movie-app.netlify.app/)
 
-![Posthog example of it appearing on the app](./src/assets/posthog_one.png)
+![PostHog example of it appearing on the app](./src/assets/posthog_one.png)
 
 ---
 
@@ -30,7 +30,7 @@ Tech Stack:
 
 ---
 
-# 📝 Posthog Survey:
+# 📝 PostHog Survey:
 
 ## What is a Posthog Survey?
 
@@ -40,17 +40,17 @@ A PostHog survey is a feature that allows you to collect direct feedback from yo
 
 Below are the steps to follow if you want to create your own survey on your website. If you've already configured your project to have Posthog, you can skip the configuration section and go to the **Adding a Survey to your app** section of this Readme file.
 
-## Configure Posthog into your project:
+## Configure PostHog into your project:
 
 1. Create an account on [https://posthog.com/](https://posthog.com/)
 2. Create your organization by giving it a name.
-   ![Posthog screenshot of the page where you add your organization name.](./src/assets/Posthog_step_one.png)
-3. Let Posthog know which features you're interested in.
-   ![Posthog Screenshot of the page where you select the features you're interested in.](./src/assets/Posthog_step_two.png)
-4. Select a framework you want to attach Posthog to. I ended up picking React because that's what I used to make my app.
-   ![Posthog Screenshot of the page where you select your framework](./src/assets/Posthog_step_three.png)
+   ![PostHog screenshot of the page where you add your organization name.](./src/assets/Posthog_step_one.png)
+3. Let PostHog know which features you're interested in.
+   ![PostHog Screenshot of the page where you select the features you're interested in.](./src/assets/Posthog_step_two.png)
+4. Select a framework you want to attach PostHog to. I ended up picking React because that's what I used to make my app.
+   ![PostHog Screenshot of the page where you select your framework](./src/assets/Posthog_step_three.png)
 5. Follow the installation guide. This part is pretty easy. All you have to do is run an npm install on posthog-js, apply your VITE environment variables, and update your main.tsx file.
-   ![Posthog Screenshot of the page that shows you how to install Posthog on your app.](./src/assets/Posthog_step_four.png)
+   ![PostHog Screenshot of the page that shows you how to install PostHog on your app.](./src/assets/Posthog_step_four.png)
 
 **Note for TypeScript users:**
 If you’re seeing warnings or errors in your main.tsx file, use this version to resolve them:
@@ -93,13 +93,13 @@ createRoot(rootElement).render(
 6. Select which plan you want (Free or paid)
 7. Invite your teammates (Optional)
 
-Your project now has Posthog configured into it. Now it's time to add the survey so it pops up!
+Your project now has PostHog configured into it. Now it's time to add the survey so it pops up!
 
 ## Adding a Survey to your app
 
 1. Click the survey button on the dropdown menu on the left menu. You might need to configure your Surveys API to allow Surveys. Thankfully, that's as easy as two button clicks!
 
-![Screenshot of the Surveys page on Posthog](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
+![Screenshot of the Surveys page on PostHog](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
 
 ![Screenshot of the page where you select the kind of survey you want.](./src/assets/survey_2.png)
 From here, you're going to see a lot of options to customize your app:
@@ -116,9 +116,9 @@ Once you've customized your survey, click Save at the top right of the screen.
 
 ---
 
-# 📂 Posthog Query API with Google Sheets:
+# 📂 PostHog Query API with Google Sheets:
 
-## What is a Posthog Query API with Google Sheets?
+## What is a PostHog Query API with Google Sheets?
 
 PostHog lets you connect lots of data sources, one of them is Google Sheets! This means you can pull in data from your spreadsheets and use it in PostHog to track trends, see metrics, or combine it with other data without any complicated setup.
 
@@ -126,9 +126,9 @@ PostHog lets you connect lots of data sources, one of them is Google Sheets! Thi
 
 Look up [my app](https://posthog-movie-app.netlify.app/) and click the **Posthog Query API** button. It pulls movies from my Google Sheet using the Posthog API and displays films about [Hedgehogs](https://posthog.com/blog/drawing-hedgehogs)!
 
-![Calling the Google Sheets with the Posthog Query API](./src/assets/posthog_sheet_1.png)
+![Calling the Google Sheets with the PostHog Query API](./src/assets/posthog_sheet_1.png)
 
-## How to set up a Source and use the Posthog API to call the data
+## How to set up a Source and use the PostHog API to call the data
 
 Before you start, you'll need a Google sheet with example data.
 ![Google Sheet with my example data that's being pulled into Posthog](./src/assets/posthog_sheet_2.png)
@@ -143,7 +143,7 @@ Before you start, you'll need a Google sheet with example data.
    Create a new key with Query: Read permission and restrict it to your project for security.
    Copy your API key.
 3. **Test if you can access your data.**  
-   I recommend using [Postman](https://postman.com/) to test the Posthog API. Here are the steps:
+   I recommend using [Postman](https://postman.com/) to test the PostHog API. Here are the steps:
 
 - Set the request to **POST**
 - Add this URL to the input:
@@ -226,9 +226,9 @@ So now that the data is being sent back to Posthog, let's talk about viewing it.
 
 1. Click the **Activity** tab on the left dropdown menu
 2. Look for the name of the event you created. (Example: `movie_search`)
-3. Click the **Hide Posthog properties** button to make it easier to find the items in the object.
+3. Click the **Hide PostHog properties** button to make it easier to find the items in the object.
 
-![Posthog Activity tab](./src/assets/posthog_event_1.png)
+![PostHog Activity tab](./src/assets/posthog_event_1.png)
 
 ### Organizing the data
 
@@ -239,7 +239,7 @@ To organize your data, you'll need to:
 3. In the section called **series**, click the name of the event you want to track. In my example, I'm tracking `movie_search`.
 4. In the **Breakdown By** section, look up what you want to search for. I want to look up `search_term` and `results_count`, which are the two bits of data sent back in my `movie_search` object!
 
-## ![Posthog Product Analytics tab](./src/assets/posthog_event_2.png)
+## ![PostHog Product Analytics tab](./src/assets/posthog_event_2.png)
 
 # 🎥 Session Replay
 
@@ -255,9 +255,9 @@ Enabling Session Replay in your account is very easy! You're pretty much just cl
 
 1. Click the **Session Replay** button on the left side of the screen.
 2. Click the **Configure** button in the top middle of the page.
-   ![Posthog Product Analytics tab](./src/assets/posthog_session_1.png)
+   ![PostHog Product Analytics tab](./src/assets/posthog_session_1.png)
 3. Click the **Record Users Session** button, and you'll have it set up on your account!
-   ![Posthog Product Analytics tab](./src/assets/posthog_session_2.png)
+   ![PostHog Product Analytics tab](./src/assets/posthog_session_2.png)
 
 ### Configuring in your TypeScript app:
 
@@ -307,4 +307,4 @@ createRoot(rootElement).render(
     Once you've added that, go back to the **Session Replay** button and watch the footage of your session. It might take a few seconds to generate the footage. \
     Check out this Gif below to see Sessions Replay in action!
 
-   ![Posthog Product Analytics tab](./src/assets/ps.gif)
+   ![PostHog Product Analytics tab](./src/assets/ps.gif)

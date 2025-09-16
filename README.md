@@ -102,12 +102,12 @@ Your project now has Posthog configured into it. Now it's time to add the survey
 ![Screenshot of the Surveys page on Posthog](./src/assets/survey_1.png) 2. Click "Create Survey" and select which one you want. I'll be going with the one that is the most popular and allows users to type out their feedback.
 
 ![Screenshot of the page where you select the kind of survey you want.](./src/assets/survey_2.png)
-From here you're going to see a lot of options to customize your app:
+From here, you're going to see a lot of options to customize your app:
 
 - Presentation: I'd recommend the Popover option for starting. This will make your survey pop up on the screen.
 - Steps: Customize what the question says and what the submit button can say.
 - Customization: Change how it looks, from size to color.
-- Display conditions: Keep it **All Users** for now. You can hange it later to fit certain conditions
+- Display conditions: Keep it **All Users** for now. You can change it later to fit certain conditions
 - Completion Conditions: For testing, I'm keeping it as is
 
 Once you've customized your survey, click Save at the top right of the screen.
@@ -139,7 +139,7 @@ Before you start, you'll need a Google sheet with example data.
    Add a new Google Sheets source and follow the prompts to connect your sheet.
    Wait for the initial sync to complete. You can trigger a manual sync from the source settings if needed.
 2. **Create a Personal API Key in PostHog** \
-   Go to your Personal API keys page (Settings --> Search "API")
+   Go to your Personal API keys page (Settings --> Search "API"). \
    Create a new key with Query: Read permission and restrict it to your project for security.
    Copy your API key.
 3. **Test if you can access your data.**  
@@ -224,9 +224,9 @@ So now that the data is being sent back to Posthog, let's talk about viewing it.
 
 ### Viewing general activity
 
-1. Click **Activity** tab on left dropdown menu
+1. Click the **Activity** tab on the left dropdown menu
 2. Look for the name of the event you created. (Example: `movie_search`)
-3. Click **Hide Posthog properties** button to make it easier to find the items in the object.
+3. Click the **Hide Posthog properties** button to make it easier to find the items in the object.
 
 ![Posthog Activity tab](./src/assets/posthog_event_1.png)
 
@@ -303,8 +303,8 @@ createRoot(rootElement).render(
 );
 ```
 
-2. After adding that code, test your app by doing something in it. For me I went to my app and searched "Hedgehog" in the search bar. \
-    Once you've added that, Go back to the **Session Replay** button and watch the footage of your session. It might take a few seconds to generate the footage. \
-    Check out this gif below to see Sessions Replay in action!
+2. After adding that code, test your app by doing something in it. To test, I went to my app and searched "Hedgehog" in the search bar. \
+    Once you've added that, go back to the **Session Replay** button and watch the footage of your session. It might take a few seconds to generate the footage. \
+    Check out this Gif below to see Sessions Replay in action!
 
    ![Posthog Product Analytics tab](./src/assets/ps.gif)

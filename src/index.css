@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #22254b;
+  background-color: #5961c8;
   color: white;
   font-family: "Poppins", sans-serif;
   margin: 0;
@@ -116,4 +116,29 @@ code {
 
 .tag.red {
   color: red;
+}
+
+/* Dark mode CSS for button that is triggered with PostHog Feature Flags */
+body.dark-mode {
+  background-color: #181824;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #23263a;
+}
+
+body.dark-mode .movie {
+  background-color: #23263a;
+}
+
+body.dark-mode .movie-over {
+  background-color: #2d314d;
+  color: #e0e0e0;
+}
+
+body.dark-mode .search {
+  background-color: #23263a;
+  border-color: #181824;
+  color: #e0e0e0;
 }

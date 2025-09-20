@@ -22,6 +22,30 @@ function App() {
   const posthog = usePostHog();
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
+  const [showDarkModeToggle, setShowDarkModeToggle] = useState(false);
+
+  // Check feature flag and update button visibility
+  useEffect(() => {
+    console.log("useEffect for dark-mode button for PostHog");
+    if (!posthog) return;
+
+    const updateFlag = () => {
+      setShowDarkModeToggle(!!posthog.isFeatureEnabled("dark-mode"));
+    };
+
+    const unsubscribe = posthog.onFeatureFlags(updateFlag);
+    updateFlag();
+
+    return () => {
+      unsubscribe();
+    };
+  }, [posthog]);
+
+  // Apply/remove dark mode class
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", darkMode);
+  }, [darkMode]);
 
   useEffect(() => {
     getMovies(FEATURED_API);
@@ -65,7 +89,7 @@ function App() {
     getMovies(FEATURED_API); // reload featured movies
   };
 
-  //Pulls from the Posthog Query API!
+  // Pulls from the Posthog Query API!
   const handleFetchFavorite = async () => {
     try {
       const res = await fetch(
@@ -91,6 +115,10 @@ function App() {
     }
   };
 
+  const handleToggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
+
   return (
     <>
       <header>
@@ -101,6 +129,16 @@ function App() {
         <button type="button" className="button" onClick={handleFetchFavorite}>
           Posthog Query API
         </button>
+        {showDarkModeToggle && (
+          <button
+            type="button"
+            className="button"
+            onClick={handleToggleDarkMode}
+            style={{ minWidth: 120 }}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+        )}
         <form onSubmit={handleOnSubmit}>
           <input
             className="search"

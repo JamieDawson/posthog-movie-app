@@ -122,7 +122,7 @@ function App() {
   return (
     <>
       <header>
-        <div className="header-text">Movie search website built in React</div>
+        <div className="header-text">Movie search website using PostHog</div>
         <button type="button" className="button" onClick={handleClearSearch}>
           HOME
         </button>

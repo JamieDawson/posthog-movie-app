@@ -320,12 +320,14 @@ createRoot(rootElement).render(
 
 I created a button that sets my app to Dark Mode and Light Mode.
 
+![My app going in dark mode and light mode](./src/assets/dark_mode.gif)
+
 ## Configure in PostHog
 
 1.  Click the **Feature Flags** button on the left side of the screen
 2.  Click **New Feature Flag** button on the top right
 
-![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_1.png)
+![PostHog Feature Flags tab](./src/assets/posthog_feature_flag_1.png)
 
 3.  Give it a key name. I went with `dark-mode`. This is the flag that will be sent to your code, so you know if it's in use or not.
 4.  Give it a description.
@@ -335,7 +337,7 @@ I created a button that sets my app to Dark Mode and Light Mode.
 7.  **Release Conditions** is what's used to determine who gets the feature. For testing purposes, I set it to 100%.
 8.  Click the **Create** button and you're done in Posthog!
 
-![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_3.png)
+![PostHog Feature Flags tab](./src/assets/posthog_feature_flag_3.png)
 
 ## Configure Feature Flag in Code
 

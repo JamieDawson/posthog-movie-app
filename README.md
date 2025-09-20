@@ -6,6 +6,7 @@ This project demonstrates:
 2. [How to connect a Google Sheet to the PostHog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
 3. [How to track Events in the search bar](#-track-events)
 4. [How to apply Session Recordings to your Typescript project](#-session-replay)
+5. [How to test new features with only 5% of your users with Feature Flags](#-feature flags)
 
 Each link is an anchor link that will send you to the correct section in this Readme file.
 
@@ -309,30 +310,97 @@ createRoot(rootElement).render(
 
    ![PostHog Product Analytics tab](./src/assets/ps.gif)
 
-   # 🚩 Feature Flags:
+# 🚩 Feature Flags:
 
-   ## What are Feature Flags?
+## What are Feature Flags?
+   [Feature Flags](https://posthog.com/feature-flags) are an easy way to test new features on a small percentage of your users without having to push new code to production. Meaning you can make a new feature, tell PostHog "only give this out to 5% of my users", then see how your users experience that new feature!
 
-   [Feature Flags](https://posthog.com/feature-flags) are an easy way to test new features to a small percentage of your users without having to push new code to production. Meaning you can push a new feature, tell posthog "only give this out to %5 of my users", then see how your users experience that new feature!
+## What feature did I add a Feature Flag to?
 
-   ## What feature did I add a Feature Flag to?
+I created a button that sets my app to Dark Mode and Light Mode.
 
-   I created a button that sets my app to Dark Mode and Light Mode.
+## Configure in PostHog
 
-   ## Configure in PostHog
-
-1) Click the **Feature Flags** button on the left side of the screen
-2) Click **New Feature Flag** button on the top right
+1.  Click the **Feature Flags** button on the left side of the screen
+2.  Click **New Feature Flag** button on the top right
 
 ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_1.png)
 
-3. Give it a key name. I went with `dark-mode`. This is what flag will be sent to your code so you know if it's in use or not.
-4. Give it a description.
-5. Make sure **Enable Feature Flag** is on!
-   ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_2.png)
-6. **Served Value** sets what is served. I want to check true or false, so I set it to **Release Toggle (Boolean)**
-7. **Release Conditions** is what's used to determine who gets the feature. For testing purposes I set it to 100%.
-8. Click **Create** button and you're done in Posthog!
+3.  Give it a key name. I went with `dark-mode`. This is the flag that will be sent to your code, so you know if it's in use or not.
+4.  Give it a description.
+5.  Make sure **Enable Feature Flag** is on!
+       ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_2.png)
+6.  **Served Value** sets what is served. I want to check true or false, so I set it to **Release Toggle (Boolean)**
+7.  **Release Conditions** is what's used to determine who gets the feature. For testing purposes, I set it to 100%.
+8.  Click the **Create** button and you're done in Posthog!
 
+![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_3.png)
 
-    ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_3.png)
+## Configure Feature Flag in Code
+
+What this code will do is check if the `dark-mode` flag from PostHog is set to true. If it's true, then it will display the Dark Mode/Light Mode button in the header!
+
+To get this feature ready, I first:
+
+1. Created the CSS for Dark Mode
+2. Created the state to confirm if the `dark-mode` flag was sent back as true
+
+```
+ const [showDarkModeToggle, setShowDarkModeToggle] = useState(false);
+```
+
+3. Created a turnerary that will display a button if the `dark-mode` button is set to true.
+
+```
+        {showDarkModeToggle && (
+          <button
+            type="button"
+            className="button"
+            onClick={handleToggleDarkMode}
+            style={{ minWidth: 120 }}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+        )}
+```
+
+4. Now I’ll set up a useEffect() hook that runs after the component first renders. I numbered all the steps that run in order.
+
+```
+useEffect(() => {
+  // 1. Check if PostHog is available. If not, exit early.
+  if (!posthog) return;
+
+  // 2. Define a function to update the state based on the feature flag.
+  const updateFlag = () => {
+    // Check if the flag is enabled (true/false/undefined).
+    // Using !! ensures we always get a strict boolean.
+    setShowDarkModeToggle(!!posthog.isFeatureEnabled("dark-mode"));
+  };
+
+  // 3. Register updateFlag as a listener for feature flag changes.
+  //    PostHog will call updateFlag whenever flags change for this user.
+  //    onFeatureFlags returns an unsubscribe function.
+  const unsubscribe = posthog.onFeatureFlags(updateFlag);
+
+  // 4. Immediately call updateFlag to set the initial state right now.
+  updateFlag();
+
+  // 5. Return a cleanup function to unsubscribe when the component unmounts.
+  return () => {
+    unsubscribe();
+  };
+
+// 6. This effect re-runs if posthog changes.
+}, [posthog]);
+```
+
+### What happens when I change a roll out percentage?
+
+PostHog uses a deterministic hashing strategy to assign users. We hash the user's distinct_id to a number between 0 and 1 (0-100%), and compare it against the roll out percentage.
+
+- If you increase the percentage, users who already matched will continue to match, and more users may now qualify.
+
+- If you decrease the percentage, some users who previously matched may fall outside the new threshold and stop qualifying.
+
+This applies to both boolean and multivariate flags. Multivariate flags assign users to specific variants based on the rollout split. If you want to roll out one variant to everyone, set it to 100% and the others to 0%. ([Source - Search "What happens when I change a roll out percentage?"](https://posthog.com/docs/feature-flags/common-questions))

@@ -308,3 +308,31 @@ createRoot(rootElement).render(
     Check out this Gif below to see Sessions Replay in action!
 
    ![PostHog Product Analytics tab](./src/assets/ps.gif)
+
+   # 🚩 Feature Flags:
+
+   ## What are Feature Flags?
+
+   [Feature Flags](https://posthog.com/feature-flags) are an easy way to test new features to a small percentage of your users without having to push new code to production. Meaning you can push a new feature, tell posthog "only give this out to %5 of my users", then see how your users experience that new feature!
+
+   ## What feature did I add a Feature Flag to?
+
+   I created a button that sets my app to Dark Mode and Light Mode.
+
+   ## Configure in PostHog
+
+1) Click the **Feature Flags** button on the left side of the screen
+2) Click **New Feature Flag** button on the top right
+
+![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_1.png)
+
+3. Give it a key name. I went with `dark-mode`. This is what flag will be sent to your code so you know if it's in use or not.
+4. Give it a description.
+5. Make sure **Enable Feature Flag** is on!
+   ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_2.png)
+6. **Served Value** sets what is served. I want to check true or false, so I set it to **Release Toggle (Boolean)**
+7. **Release Conditions** is what's used to determine who gets the feature. For testing purposes I set it to 100%.
+8. Click **Create** button and you're done in Posthog!
+
+
+    ![PostHog Product Analytics tab](./src/assets/posthog_feature_flag_3.png)

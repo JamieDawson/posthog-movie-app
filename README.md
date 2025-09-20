@@ -6,7 +6,7 @@ This project demonstrates:
 2. [How to connect a Google Sheet to the PostHog Data Warehouse and display it in your frontend](#-posthog-query-api-with-google-sheets)
 3. [How to track Events in the search bar](#-track-events)
 4. [How to apply Session Recordings to your Typescript project](#-session-replay)
-5. [How to test new features with only 5% of your users with Feature Flags](#-feature flags)
+5. [How to test new features with only 5% of your users with Feature Flags](#-feature-flags)
 
 Each link is an anchor link that will send you to the correct section in this Readme file.
 
@@ -313,7 +313,8 @@ createRoot(rootElement).render(
 # 🚩 Feature Flags:
 
 ## What are Feature Flags?
-   [Feature Flags](https://posthog.com/feature-flags) are an easy way to test new features on a small percentage of your users without having to push new code to production. Meaning you can make a new feature, tell PostHog "only give this out to 5% of my users", then see how your users experience that new feature!
+
+[Feature Flags](https://posthog.com/feature-flags) are an easy way to test new features on a small percentage of your users without having to push new code to production. Meaning you can make a new feature, tell PostHog "only give this out to 5% of my users", then see how your users experience that new feature!
 
 ## What feature did I add a Feature Flag to?
 

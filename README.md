@@ -7,6 +7,7 @@ This project demonstrates:
 3. [How to track Events in the search bar](#-track-events)
 4. [How to apply Session Recordings to your Typescript project](#-session-replay)
 5. [How to test new features with only 5% of your users with Feature Flags](#-feature-flags)
+6. [How to Track errors](#-error-tracking)
 
 Each link is an anchor link that will send you to the correct section in this Readme file.
 

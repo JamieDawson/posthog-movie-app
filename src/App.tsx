@@ -57,7 +57,17 @@ function App() {
       .then((data) => {
         setMovies(data.results || []);
       })
-      .catch((err) => console.error("Error fetching movies:", err));
+      .catch((err) => {
+        if (posthog) {
+          posthog.capture("api_error", {
+            source: "getMovies",
+            message: err.message,
+            api: API,
+            stack: err.stack,
+          });
+        }
+        console.error("Error fetching movies:", err);
+      });
   };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +86,18 @@ function App() {
             });
           }
         })
-        .catch((err) => console.error("Error fetching search results:", err));
+        .catch((err) => {
+          if (posthog) {
+            posthog.capture("api_error", {
+              source: "handleOnSubmit",
+              message: err.message,
+              search_term: searchTerm,
+              api: SEARCH_API + searchTerm,
+              stack: err.stack,
+            });
+          }
+          console.error("Error fetching search results:", err);
+        });
     }
   };
 
@@ -110,7 +131,21 @@ function App() {
 
         setMovies(favoriteMovies);
       }
-    } catch (err) {
+    } catch (err: unknown) {
+      if (posthog) {
+        if (err instanceof Error) {
+          posthog.capture("api_error", {
+            source: "handleFetchFavorite",
+            message: err.message,
+            stack: err.stack,
+          });
+        } else {
+          posthog.capture("api_error", {
+            source: "handleFetchFavorite",
+            message: "Unknown error",
+          });
+        }
+      }
       console.error("Error fetching favorite movies:", err);
     }
   };
@@ -128,6 +163,17 @@ function App() {
         </button>
         <button type="button" className="button" onClick={handleFetchFavorite}>
           Posthog Query API
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => {
+            // Simulate a real bug: trying to access a property on undefined
+            const user = undefined;
+            alert(user.name);
+          }}
+        >
+          Trigger Realistic Error
         </button>
         {showDarkModeToggle && (
           <button

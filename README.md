@@ -407,3 +407,86 @@ PostHog uses a deterministic hashing strategy to assign users. We hash the user'
 - If you decrease the percentage, some users who previously matched may fall outside the new threshold and stop qualifying.
 
 This applies to both boolean and multivariate flags. Multivariate flags assign users to specific variants based on the rollout split. If you want to roll out one variant to everyone, set it to 100% and the others to 0%. ([Source - Search "What happens when I change a roll out percentage?"](https://posthog.com/docs/feature-flags/common-questions))
+
+# 🚨 Error Tracking
+
+## What is Error Tracking?
+
+[Error Tracking](https://posthog.com/error-tracking) lets you automatically capture and view frontend (JavaScript apps) and backend errors (if you use a server-side SDK) in your app. Instead of relying on `console.log` or hoping a user tells you “something broke,” PostHog gives you a live feed of actual errors happening in production.
+
+Think of it like a safety net: every time your code throws an exception, PostHog catches it and shows you what went wrong, complete with stack traces and error details.
+
+## What am I tracking in my code?
+
+In my app, I’m tracking things like API calls and random bugs that happen when rendering movie data. For example:
+
+- When the app launches → I make an API request to fetch movie posters. If that API fails, I want to know.
+
+- When a user clicks a button that breaks → I want the error logged so I can see the stack trace later in PostHog.
+
+This gives me a full picture: both “real bugs” in my code and “networking issues” that my users might hit.
+
+## Setting up in PostHog
+
+1. Click the **Error Tracking** button in the left side of the screen. If you haven't enabled Error Tracking, then you'll see this below. Click the enable button to turn it on.
+
+![PostHog Error Tracking page without enabling](./src/assets/posthog_error_tracking_1.png)
+
+2.  After you enable it you should see this page:
+    ![PostHog Error Tracking page with enabling](./src/assets/posthog_error_tracking_2.png)
+
+## Simulating a "real bug"
+
+Before I show you how to update your code, it's important to understand what _can_ and _can't_ be shown in the Error Tracking tab.
+
+API errors **can't** be shown in the **Error Tracking** tab!
+
+For API errors, you can still capture them manually with `posthog.capture()`. They won’t show in the Error Tracking tab, but they will appear in the **Activity** tab (so you still have a record).
+
+```
+  const getMovies = (API: string) => {
+   fetch(API)
+     .then((res) => res.json())
+     .then((data) => {
+       setMovies(data.results || []);
+     })
+     .catch((err) => {
+       if (posthog) {
+         posthog.capture("api_error", {
+           source: "getMovies",
+           message: err.message,
+           api: API,
+           stack: err.stack,
+         });
+       }
+       console.error("Error fetching movies:", err);
+     });
+ };
+```
+
+1. For my app, I decided to create a button that calls on an undefined variable and then call it using an alert. The `alert(user.name)` won’t work because user is undefined, so trying to access `.name` throws an error.
+
+```
+        <button
+          type="button"
+          className="button"
+          onClick={() => {
+            // Simulate a real bug: trying to access a property on undefined
+            const user = undefined;
+            alert(user.name);
+          }}
+        >
+          Trigger Realistic Error
+        </button>
+```
+
+2. After clicking the button, I was able to see the error in my **Error Tracking** tab.
+   ![PostHog Error Tracking page with enabling](./src/assets/posthog_error_tracking_6.png)
+
+### TL;DR
+
+- **Error Tracking tab** → for unhandled runtime errors/exceptions.
+
+- **Activity tab** → for custom events you log yourself (like API failures).
+
+- Both give you visibility into what’s breaking in your app, just from slightly different angles.

@@ -169,7 +169,7 @@ function App() {
           className="button"
           onClick={() => {
             // Simulate a real bug: trying to access a property on undefined
-            const user = undefined;
+            const user: any = undefined;
             alert(user.name);
           }}
         >
